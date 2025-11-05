@@ -216,6 +216,7 @@ Rank 100 player has different feature distributions than rank 5,000 player. Sepa
 
 ## Project Structure
 
+```text
 osu_rank_predictor/
 ├── __init__.py
 ├── config.py
@@ -238,8 +239,7 @@ osu_rank_predictor/
     ├── raw/
     ├── processed/
     └── models/
-
-text
+```
 
 ### Results
 
