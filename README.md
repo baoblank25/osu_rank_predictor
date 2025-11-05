@@ -119,30 +119,25 @@ cd osu-rank-predictor
 
 python -m venv venv
 
-text
 
 ### Step 2: Activate Virtual Environment
 
 **Windows (PowerShell):**
 venv\Scripts\activate
 
-text
 
 **If you get an execution policy error:**
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 venv\Scripts\activate
 
-text
 
 **Windows (Command Prompt):**
 venv\Scripts\activate.bat
 
-text
 
 **macOS/Linux:**
 source venv/bin/activate
 
-text
 
 ✅ **Success indicator:** Your terminal prompt should now show `(venv)` at the beginning.
 
@@ -150,13 +145,11 @@ text
 
 pip install -r requirements.txt
 
-text
 
 ### Step 4: Configure API Key
 
 echo "OSU_API_KEY=your_key_here" > .env
 
-text
 
 ### Deactivate Virtual Environment (when done)
 
