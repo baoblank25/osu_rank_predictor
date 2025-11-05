@@ -244,6 +244,8 @@ osu_rank_predictor/
 
 ## Results & Learning Outcomes
 
+### Results
+
 - **Accuracy**: ±15-20% error for elite players
 - **Readability**: Feature importance visible through Random Forest
 - **Scalability**: Can retrain on 500+ players in <5 minutes
