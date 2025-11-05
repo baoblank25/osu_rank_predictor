@@ -217,7 +217,7 @@ Rank 100 player has different feature distributions than rank 5,000 player. Sepa
 📁 Project Structure
 
 osu_rank_predictor/
-├── init.py
+├── __init__.py
 ├── config.py
 ├── model.py
 ├── features.py
@@ -229,34 +229,34 @@ osu_rank_predictor/
 ├── .env
 │
 ├── scripts/
-│ ├── init.py
-│ ├── 1_collect_data.py
-│ ├── 2_train_model.py
-│ └── 3_predict.py
+│   ├── __init__.py
+│   ├── 1_collect_data.py
+│   ├── 2_train_model.py
+│   └── 3_predict.py
 │
 └── data/
-├── raw/
-├── processed/
-└── models/
+    ├── raw/
+    ├── processed/
+    └── models/
 
 text
 
-## Results
+### Results
 
 - **Accuracy**: ±15-20% error for elite players
 - **Readability**: Feature importance visible through Random Forest
 - **Scalability**: Can retrain on 500+ players in <5 minutes
 - **Production-Ready**: Standalone `.pth` model
 
-##Future Improvements
+###Future Improvements
 
-- [ ] Gradient Boosting (XGBoost)
-- [ ] LSTM for temporal player progression
-- [ ] API caching for rate limiting
-- [ ] Web deployment (FastAPI + React)
-- [ ] Multi-country prediction
+- Gradient Boosting (XGBoost)
+- LSTM for temporal player progression
+- API caching for rate limiting
+- Web deployment (FastAPI + React)
+- Multi-country prediction
 
-##Learning Outcomes
+###Learning Outcomes
 
 This project demonstrates:
 - Ensemble machine learning (Random Forest + Neural Networks)
@@ -266,7 +266,7 @@ This project demonstrates:
 - API integration and rate limiting
 - Production ML pipeline
 
-##Author
+###Author
 
 **Brian Bao Hoang**
 - [GitHub](https://github.com/baoblank25)
