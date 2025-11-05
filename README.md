@@ -204,7 +204,7 @@ Rank 100 player has different feature distributions than rank 5,000 player. Sepa
 - Newly ranked players (<7 days active)
 - Ranks beyond training distribution
 
-## 🔬 Technical Stack
+## Technical Stack
 
 | Component | Library | Version |
 |-----------|---------|---------|
@@ -214,7 +214,7 @@ Rank 100 player has different feature distributions than rank 5,000 player. Sepa
 | API Integration | requests | Latest |
 | Optimization | Adam | Built-in PyTorch |
 
-📁 Project Structure
+## Project Structure
 
 osu_rank_predictor/
 ├── __init__.py
@@ -248,7 +248,7 @@ text
 - **Scalability**: Can retrain on 500+ players in <5 minutes
 - **Production-Ready**: Standalone `.pth` model
 
-###Future Improvements
+### Future Improvements
 
 - Gradient Boosting (XGBoost)
 - LSTM for temporal player progression
@@ -256,7 +256,7 @@ text
 - Web deployment (FastAPI + React)
 - Multi-country prediction
 
-###Learning Outcomes
+### Learning Outcomes
 
 This project demonstrates:
 - Ensemble machine learning (Random Forest + Neural Networks)
@@ -266,7 +266,7 @@ This project demonstrates:
 - API integration and rate limiting
 - Production ML pipeline
 
-###Author
+### Author
 
 **Brian Bao Hoang**
 - [GitHub](https://github.com/baoblank25)
