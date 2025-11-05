@@ -144,7 +144,6 @@ source venv/bin/activate
 ### Step 3: Install Dependencies
 ```text
 pip install -r requirements.txt
-
 ```
 ### Step 4: Configure API Key
 ```text
@@ -166,15 +165,17 @@ echo "OSU_API_KEY=your_key_here" > .env
 ### Training Pipeline
 
 1. Collect training data (50-100 diverse players between rank 1-10k)
+```text
 python scripts/1_collect_data.py
-
+```
 2. Train dual-mode ensemble
+```text
 python scripts/2_train_model.py
-
+```
 3. Make predictions
+```text
 python scripts/3_predict.py
-
-text
+```
 
 ## Key Design Decisions
 
