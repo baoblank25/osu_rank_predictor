@@ -20,6 +20,7 @@ Architecture
 Ensemble Model: Dual(Log and Linear) Rank Stratification
 
 INPUT FEATURES (25 features)
+```text
 ↓
 ├─→ LOG-SCALED BRANCH (Ranks 1-1,000)
 │ ├─→ Log Transform: y' = log(1 + rank)
@@ -33,7 +34,7 @@ INPUT FEATURES (25 features)
 └─→ Ensemble Average: 0.6RF + 0.4NN
 
 OUTPUT: Predicted Rank (1-10,000)
-
+```
 ### Technical Components
 
 #### 1. **Random Forest** (60% weight)
@@ -93,7 +94,6 @@ Variance Analysis:
 ├─ Std deviation: 1,200 ranks 
 └─ Prediction diversity: GOOD 
 
-text
 
 ### Accuracy by Rank Range
 
@@ -111,17 +111,17 @@ text
 - osu! API key (free at https://osu.ppy.sh/p/api)
 
 ### Installation
-
+```text
 git clone https://github.com/yourusername/osu-rank-predictor.git
 cd osu-rank-predictor
-
+```
 ### Step 1: Create Virtual Environment
-
+```text
 python -m venv venv
-
+```
 
 ### Step 2: Activate Virtual Environment
-
+```text
 **Windows (PowerShell):**
 venv\Scripts\activate
 
@@ -139,15 +139,15 @@ venv\Scripts\activate.bat
 source venv/bin/activate
 
 
-✅ **Success indicator:** Your terminal prompt should now show `(venv)` at the beginning.
-
+**Success indicator:** Your terminal prompt should now show `(venv)` at the beginning.
+```
 ### Step 3: Install Dependencies
-
+```text
 pip install -r requirements.txt
 
-
+```
 ### Step 4: Configure API Key
-
+```text
 echo "OSU_API_KEY=your_key_here" > .env
 
 
@@ -161,7 +161,7 @@ pip install -r requirements.txt
 Configure API key
 echo "OSU_API_KEY=your_key_here" > .env
 
-text
+```
 
 ### Training Pipeline
 
