@@ -115,13 +115,52 @@ text
 git clone https://github.com/yourusername/osu-rank-predictor.git
 cd osu-rank-predictor
 
-Create virtual environment
-- python -m venv venv
-- venv\Scripts\activate
-If given an error, Try:
-- python -m venv venv
-- Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser 
-- venv\Scripts\activate
+### Step 1: Create Virtual Environment
+
+python -m venv venv
+
+text
+
+### Step 2: Activate Virtual Environment
+
+**Windows (PowerShell):**
+venv\Scripts\activate
+
+text
+
+**If you get an execution policy error:**
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+venv\Scripts\activate
+
+text
+
+**Windows (Command Prompt):**
+venv\Scripts\activate.bat
+
+text
+
+**macOS/Linux:**
+source venv/bin/activate
+
+text
+
+✅ **Success indicator:** Your terminal prompt should now show `(venv)` at the beginning.
+
+### Step 3: Install Dependencies
+
+pip install -r requirements.txt
+
+text
+
+### Step 4: Configure API Key
+
+echo "OSU_API_KEY=your_key_here" > .env
+
+text
+
+### Deactivate Virtual Environment (when done)
+
+deactivate
 
 Install dependencies
 pip install -r requirements.txt
