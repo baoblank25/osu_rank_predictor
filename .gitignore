@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+
+# Data (optional - don't commit large CSV files)
+data/processed/features.csv
+data/raw/*.csv
+
+# Models (don't commit trained models - too large)
+data/models/model.pth
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
