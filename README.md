@@ -116,12 +116,12 @@ git clone https://github.com/yourusername/osu-rank-predictor.git
 cd osu-rank-predictor
 
 Create virtual environment
-python -m venv venv
-venv\Scripts\activate
+- python -m venv venv
+- venv\Scripts\activate
 If given an error, Try:
-python -m venv venv
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser 
-venv\Scripts\activate
+- python -m venv venv
+- Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser 
+- venv\Scripts\activate
 
 Install dependencies
 pip install -r requirements.txt
