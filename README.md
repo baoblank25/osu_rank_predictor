@@ -79,7 +79,7 @@ OUTPUT: Predicted Rank (1-10,000)
 
 **Total: 25 engineered features**
 
-## 📈 Performance
+## Performance
 
 ### Test Results
 
