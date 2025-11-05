@@ -64,7 +64,7 @@ OUTPUT: Predicted Rank (1-10,000)
 - Applied independently per rank range
 - Normalizes neural network inputs
 
-##Features Engineering
+## Features Engineering
 
 | Category | Features (Count) | Example |
 |----------|-----------------|---------|
@@ -242,7 +242,7 @@ osu_rank_predictor/
     └── models/
 ```
 
-### Results
+## Results & Learning Outcomes
 
 - **Accuracy**: ±15-20% error for elite players
 - **Readability**: Feature importance visible through Random Forest
