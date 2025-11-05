@@ -57,7 +57,7 @@ OUTPUT: Predicted Rank (1-10,000)
 - Separate models for top (1-1k) vs mid-tier (1k-10k) players
 - Log-scaling for top players captures exponential skill distribution
 - Linear scaling for mid-tier maintains the prediction validation
-- Improves accuracy by 50-60%(even higher for top players) vs single-model approach
+- Improves accuracy by 15+%(even higher for top players) vs single-model approach
 
 #### 4. **Feature Scaling**
 - RobustScaler (resistant to outliers)
