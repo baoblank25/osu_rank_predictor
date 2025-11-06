@@ -6,7 +6,7 @@
 
 A machine learning system that predicts competitive player rankings in the rhythm game **Osu!** using an ensemble approach along with Random Forest regressors and neural networks with rank-stratified training.
 
-Problem Statement
+### Problem Statement
 
 Predicting player skill levels in online gaming is challenging due to:
 - Non-linear relationships between performance metrics and ranking
