@@ -15,6 +15,7 @@ from model import RankStratifiedEnsembleModel as EnsembleModel
 
 if __name__ == "__main__":
     try:
+        
         # Load data
         data_file = PROCESSED_DIR / 'features.csv'
         print(f"Loading data from {data_file}...")

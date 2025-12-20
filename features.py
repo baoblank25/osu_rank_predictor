@@ -1,9 +1,21 @@
 import pandas as pd
 import numpy as np
 from datetime import datetime
+from nlp_features import NLPFeatureExtractor
+
+# Global NLP extractor instance (reuse for efficiency)
+_nlp_extractor = None
 
 
-def engineer_features(player_data):
+def get_nlp_extractor(use_transformers=False):
+    """Get or create NLP feature extractor"""
+    global _nlp_extractor
+    if _nlp_extractor is None:
+        _nlp_extractor = NLPFeatureExtractor(use_transformers=use_transformers)
+    return _nlp_extractor
+
+
+def engineer_features(player_data, include_nlp=True, use_transformers=False):
     """Create advanced features from player data"""
     try:
         user = player_data['user']
@@ -224,6 +236,16 @@ def engineer_features(player_data):
             features['ranked_score_ratio'] * 0.3
         )
         
+        # ===== NLP EXPERIMENTS =====
+        if include_nlp:
+            try:
+                nlp_extractor = get_nlp_extractor(use_transformers=use_transformers)
+                nlp_features = nlp_extractor.extract_features(best, recent)
+                features.update(nlp_features)
+            except Exception as e:
+                print(f"Warning: NLP feature extraction failed: {e}")
+                # Continue without NLP experiments
+        
         return pd.Series(features)
         
     except Exception as e:
@@ -233,14 +255,29 @@ def engineer_features(player_data):
         return None
 
 
-def process_dataset(players_data):
-    """Process all players into dataframe"""
+def process_dataset(players_data, include_nlp=True, use_transformers=False):
+    """
+    Process all players into dataframe.
+    
+    Args:
+        players_data: List of player data dictionaries
+        include_nlp: Include NLP experiments from beatmap metadata (default: True)
+        use_transformers: Use deep learning embeddings for NLP (default: False)
+    
+    Returns:
+        DataFrame with all features
+    """
     features_list = []
     failed_count = 0
     
+    if include_nlp:
+        print("NLP experiments ENABLED - extracting text features from beatmap metadata")
+        if use_transformers:
+            print("Using sentence-transformers for deep embeddings")
+    
     for idx, player in enumerate(players_data):
         try:
-            features = engineer_features(player)
+            features = engineer_features(player, include_nlp=include_nlp, use_transformers=use_transformers)
             if features is not None and not features.isna().all():
                 features_list.append(features)
             else:
@@ -257,7 +294,7 @@ def process_dataset(players_data):
     df = pd.DataFrame(features_list)
     df = df.dropna(subset=['rank']).fillna(0)
     
-    print(f"Processed {len(df)} players with {len(df.columns)} features")
+    print(f"\nProcessed {len(df)} players with {len(df.columns)} features")
     print(f"Failed: {failed_count} players")
     
     # Show feature statistics
@@ -266,5 +303,22 @@ def process_dataset(players_data):
     print(f"   Rank Range: {int(df['rank'].min()):,} - {int(df['rank'].max()):,}")
     print(f"   PP Range: {df['pp'].min():.0f} - {df['pp'].max():.0f}")
     print(f"   Accuracy Range: {df['accuracy'].min():.2f}% - {df['accuracy'].max():.2f}%")
+    
+    # Show NLP feature summary
+    if include_nlp:
+        nlp_cols = [c for c in df.columns if c.startswith('nlp_')]
+        print(f"\n   NLP Experiments: {len(nlp_cols)}")
+        if nlp_cols:
+            print(f"   NLP Feature Categories:")
+            genre_count = len([c for c in nlp_cols if 'genre' in c])
+            mod_count = len([c for c in nlp_cols if 'mod' in c])
+            diff_count = len([c for c in nlp_cols if 'diff' in c])
+            emb_count = len([c for c in nlp_cols if 'emb' in c])
+            other_count = len(nlp_cols) - genre_count - mod_count - diff_count - emb_count
+            print(f"      • Genre features: {genre_count}")
+            print(f"      • Mod features: {mod_count}")
+            print(f"      • Difficulty features: {diff_count}")
+            print(f"      • Embedding features: {emb_count}")
+            print(f"      • Other NLP experiments: {other_count}")
     
     return df

@@ -151,6 +151,48 @@ def predict_player(user, api):
         print(f"   Play Count:     {int(features['play_count']):>25,}")
         print(f"   Level:          {int(features['level']):>25}")
         print(f"   PP Gain (month):{int(features['pp_gain_month']):>25}")
+        
+        # Display NLP Experiments
+        print(f"\nNLP Experiments (Text Analysis):")
+        
+        # Genre preferences
+        genres = ['anime', 'electronic', 'rock', 'pop', 'classical', 'game']
+        top_genres = []
+        for g in genres:
+            key = f'nlp_genre_{g}'
+            if key in features and features[key] > 0:
+                top_genres.append((g, features[key]))
+        top_genres.sort(key=lambda x: x[1], reverse=True)
+        if top_genres:
+            genre_str = ', '.join([f"{g}({int(c)})" for g, c in top_genres[:3]])
+            print(f"   Top Genres:     {genre_str:>25}")
+        
+        # Mod preferences
+        if 'nlp_mod_diversity' in features:
+            print(f"   Mod Diversity:  {int(features['nlp_mod_diversity']):>25}")
+        if 'nlp_avg_mods_per_play' in features:
+            print(f"   Avg Mods/Play:  {features['nlp_avg_mods_per_play']:>25.2f}")
+        if 'nlp_nomod_ratio' in features:
+            print(f"   NoMod Ratio:    {features['nlp_nomod_ratio']*100:>24.1f}%")
+        
+        # Specific mods used
+        mod_counts = []
+        for mod in ['hd', 'hr', 'dt', 'fl']:
+            key = f'nlp_mod_{mod}'
+            if key in features and features[key] > 0:
+                mod_counts.append((mod.upper(), int(features[key])))
+        if mod_counts:
+            mod_str = ', '.join([f"{m}({c})" for m, c in mod_counts])
+            print(f"   Mods Used:      {mod_str:>25}")
+        
+        # Song diversity
+        if 'nlp_unique_songs' in features:
+            print(f"   Unique Songs:   {int(features['nlp_unique_songs']):>25}")
+        if 'nlp_unique_artists' in features:
+            print(f"   Unique Artists: {int(features['nlp_unique_artists']):>25}")
+        if 'nlp_japanese_ratio' in features:
+            print(f"   Japanese Songs: {features['nlp_japanese_ratio']*100:>24.1f}%")
+        
         print(f"{'='*70}\n")
         
         return True
@@ -185,10 +227,7 @@ def main():
             
             if success:
                 # Ask to predict another
-                again = input("🔄 Predict another player? (yes/no): ").strip().lower()
-                if again not in ['yes', 'y']:
-                    print("\n🙏 Thanks for using osu! Rank Predictor! 👋\n")
-                    break
+                again = input("Predict another player? (yes/no): ").strip().lower()
             
     except KeyboardInterrupt:
         print("\n\nExiting...")
