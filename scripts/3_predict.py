@@ -128,9 +128,8 @@ def predict_player(user, api):
             mode = "LINEAR"
         
         # Display results
-        print(f"\n{'='*70}")
-        print(f"PREDICTION FOR {username.upper()}")
-        print(f"{'='*70}")
+        print(f"\nPREDICTION FOR {username.upper()}")
+        print(f"{'-'*50}")
         print(f"Predicted Rank:  {pred_rank_rounded:>30,}")
         print(f"Actual Rank:     {int(actual_rank):>30,}")
         print(f"Difference:      {int(difference):>30,}")
@@ -193,8 +192,6 @@ def predict_player(user, api):
         if 'nlp_japanese_ratio' in features:
             print(f"   Japanese Songs: {features['nlp_japanese_ratio']*100:>24.1f}%")
         
-        print(f"{'='*70}\n")
-        
         return True
         
     except Exception as e:
@@ -206,11 +203,9 @@ def predict_player(user, api):
 
 def main():
     """Main function"""
-    print("\n" + "="*70)
     print("osu! RANK PREDICTOR v3 (DUAL-MODE: LOG + LINEAR)")
     print("CONSTRAINT: Ranks 1-10,000 ONLY")
     print("   Reason: API rate limiting prevents data collection beyond top 10k")
-    print("="*70)
     
     try:
         while True:
@@ -228,6 +223,9 @@ def main():
             if success:
                 # Ask to predict another
                 again = input("Predict another player? (yes/no): ").strip().lower()
+                if again not in ['yes', 'y']:
+                    print("Goodbye!")
+                    break
             
     except KeyboardInterrupt:
         print("\n\nExiting...")

@@ -10,7 +10,6 @@ venv/
 # Data (optional - don't commit large CSV files)
 data/processed/features.csv
 data/raw/*.csv
-data/raw/players.json
 
 # Models (don't commit trained models - too large)
 data/models/model.pth
