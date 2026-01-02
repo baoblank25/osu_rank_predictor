@@ -312,10 +312,8 @@ class RankStratifiedEnsembleModel:
         
         if mode == "log":
             models = self.models_log
-            # print(f"using log model for rank {int(player_rank)}")
         else:
             models = self.models_linear
-            # print(f"using linear model for rank {int(player_rank)}")
         
         # fallback if we dont have this range trained
         if range_key not in models:
