@@ -16,7 +16,7 @@ def get_nlp_extractor(use_transformers=False):
 
 
 def engineer_features(player_data, include_nlp=True, use_transformers=False):
-    """Create advanced features from player data"""
+    """extract all the features we care about from raw player data"""
     try:
         user = player_data['user']
         best = player_data['best_scores']

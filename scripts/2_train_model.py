@@ -6,11 +6,58 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 import pandas as pd
 import torch
 import numpy as np
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, KFold
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
 from config import PROCESSED_DIR, MODELS_DIR, DEVICE, EPOCHS, BATCH_SIZE
 from model import RankStratifiedEnsembleModel as EnsembleModel
+
+
+def run_cross_validation(X, y, n_splits=5):
+    """Run k-fold cross-validation to validate model performance"""
+    print("=" * 70)
+    print(f"RUNNING {n_splits}-FOLD CROSS-VALIDATION")
+    print("=" * 70 + "\n")
+    
+    kfold = KFold(n_splits=n_splits, shuffle=True, random_state=42)
+    cv_metrics = {'mae': [], 'rmse': [], 'r2': [], 'log_mae': []}
+    
+    for fold, (train_idx, val_idx) in enumerate(kfold.split(X), 1):
+        print(f"Fold {fold}/{n_splits}...")
+        
+        X_train, X_val = X[train_idx], X[val_idx]
+        y_train, y_val = y[train_idx], y[val_idx]
+        
+        # Train model
+        model = EnsembleModel(X_train.shape[1], DEVICE)
+        model.fit(X_train, y_train, epochs=EPOCHS, batch_size=BATCH_SIZE)
+        
+        # Predict
+        y_pred = np.array([model.predict(X_val[i:i+1], y_val[i])[0] for i in range(len(X_val))])
+        
+        # Metrics
+        mae = mean_absolute_error(y_val, y_pred)
+        rmse = np.sqrt(mean_squared_error(y_val, y_pred))
+        r2 = r2_score(y_val, y_pred)
+        log_mae = mean_absolute_error(np.log1p(y_val), np.log1p(y_pred))
+        
+        cv_metrics['mae'].append(mae)
+        cv_metrics['rmse'].append(rmse)
+        cv_metrics['r2'].append(r2)
+        cv_metrics['log_mae'].append(log_mae)
+        
+        print(f"   Fold {fold} - MAE: {mae:,.0f} | R²: {r2:.4f}\n")
+    
+    print("=" * 70)
+    print("CROSS-VALIDATION RESULTS:")
+    print("=" * 70)
+    print(f"   MAE:      {np.mean(cv_metrics['mae']):>10,.0f} ± {np.std(cv_metrics['mae']):,.0f}")
+    print(f"   RMSE:     {np.mean(cv_metrics['rmse']):>10,.0f} ± {np.std(cv_metrics['rmse']):,.0f}")
+    print(f"   R²:       {np.mean(cv_metrics['r2']):>10.4f} ± {np.std(cv_metrics['r2']):.4f}")
+    print(f"   Log MAE:  {np.mean(cv_metrics['log_mae']):>10.4f} ± {np.std(cv_metrics['log_mae']):.4f}")
+    print("=" * 70 + "\n")
+    
+    return cv_metrics
 
 
 if __name__ == "__main__":
@@ -21,7 +68,7 @@ if __name__ == "__main__":
         print(f"Loading data from {data_file}...")
         df = pd.read_csv(data_file)
         
-        print(f"✓ Loaded {len(df)} players with {len(df.columns)} features\n")
+        print(f"Loaded {len(df)} players with {len(df.columns)} features\n")
         
         X = df.drop('rank', axis=1).values
         y = df['rank'].values
@@ -117,6 +164,18 @@ if __name__ == "__main__":
         print(f"Dual-mode model trained and saved!")
         print(f"Model supports ranks 1-10,000 ONLY")
         print(f"Ranks beyond 10k will be rejected during prediction")
+        
+        # Optional: Run cross-validation for model validation
+        print("\n" + "=" * 70)
+        print("OPTIONAL: Run cross-validation for comprehensive evaluation")
+        print("=" * 70)
+        print("   python scripts/4_evaluate_model.py")
+        print("   This will run:")
+        print("     - K-Fold Cross-Validation")
+        print("     - Ablation Studies (feature importance)")
+        print("     - Overfitting Detection")
+        print("     - Learning Curve Analysis")
+        
         print(f"\n Next step:")
         print(f"   python scripts/3_predict.py\n")
         

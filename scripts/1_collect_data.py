@@ -32,7 +32,7 @@ class LeaderboardFetcher:
         response = requests.post(auth_url, json=data, timeout=10)
         response.raise_for_status()
         self.token = response.json()['access_token']
-        print("✓ Authenticated with osu! API")
+        print("Authenticated with osu! API")
     
     def _headers(self):
         return {'Authorization': f'Bearer {self.token}'}
